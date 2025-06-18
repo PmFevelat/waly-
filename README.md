@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Waldy - Application Next.js
 
-## Getting Started
+Une application moderne construite avec Next.js, TypeScript et Tailwind CSS.
 
-First, run the development server:
+## 🚀 Technologies utilisées
+
+- **Next.js 15.3.4** - Framework React avec App Router
+- **TypeScript** - Typage statique
+- **Tailwind CSS v4** - Framework CSS utilitaire
+- **ESLint** - Linter pour JavaScript/TypeScript
+- **Prettier** - Formatage automatique du code
+- **Lucide React** - Icônes modernes
+- **React 19** - Bibliothèque UI
+
+## 📦 Installation
+
+```bash
+npm install
+```
+
+## 🛠️ Scripts disponibles
+
+- `npm run dev` - Lance le serveur de développement (avec Turbopack)
+- `npm run build` - Construit l'application pour la production
+- `npm run start` - Lance l'application en mode production
+- `npm run lint` - Vérifie le code avec ESLint
+- `npm run format` - Formate le code avec Prettier
+- `npm run format:check` - Vérifie le formatage du code
+
+## 🌐 Développement
+
+Pour démarrer le serveur de développement :
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur pour voir l'application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Structure du projet
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/              # App Router de Next.js
+│   ├── layout.tsx   # Layout principal
+│   ├── page.tsx     # Page d'accueil
+│   └── globals.css  # Styles globaux
+└── lib/             # Utilitaires
+    └── utils.ts     # Fonctions helper (cn, etc.)
+```
 
-## Learn More
+## 🎨 Utilitaires inclus
 
-To learn more about Next.js, take a look at the following resources:
+- `cn()` - Fonction pour combiner les classes CSS (clsx + tailwind-merge)
+- Configuration Prettier avec plugin Tailwind CSS
+- Configuration ESLint optimisée pour Next.js
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📝 Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ce projet utilise l'App Router de Next.js et Tailwind CSS v4 pour une expérience de développement moderne et optimisée.
