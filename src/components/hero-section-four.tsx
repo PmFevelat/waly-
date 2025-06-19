@@ -10,7 +10,40 @@ export default function HeroSection() {
         <>
             <HeroHeader />
             <main className="[--color-primary:var(--color-indigo-500)]">
-                <section className="overflow-hidden">
+                <section className="overflow-hidden relative">
+                    {/* Image man collée à gauche - taille réduite */}
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 z-0">
+                        <Image
+                            src="/images/man.png"
+                            alt="Man illustration"
+                            width={200}
+                            height={280}
+                            className="object-contain"
+                        />
+                    </div>
+
+                    {/* Image woman collée contre la bordure droite - décalée vers le bas */}
+                    <div className="absolute right-0 top-32 z-0">
+                        <Image
+                            src="/images/woman.png"
+                            alt="Woman illustration"
+                            width={180}
+                            height={220}
+                            className="object-contain"
+                        />
+                    </div>
+
+                    {/* Image charli collée contre la bordure droite - taille encore plus réduite */}
+                    <div className="absolute right-0 bottom-4 z-0">
+                        <Image
+                            src="/images/charli.png"
+                            alt="Charli illustration"
+                            width={90}
+                            height={110}
+                            className="object-contain"
+                        />
+                    </div>
+
                     <div className="py-20 md:py-36">
                         <div className="relative z-10 mx-auto max-w-5xl px-6">
                             <div className="relative text-center">
@@ -30,25 +63,7 @@ export default function HeroSection() {
                                 </div>
                             </div>
 
-                            <div className="relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-3xl bg-black/10 md:mt-20">
-                                <Image
-                                    src="/images/background.png"
-                                    alt="Background"
-                                    width={2942}
-                                    height={1842}
-                                    className="absolute inset-0 size-full object-cover"
-                                />
 
-                                <div className="bg-background rounded-(--radius) relative m-4 overflow-hidden border border-transparent shadow-xl shadow-black/15 ring-1 ring-black/10 sm:m-8 md:m-12">
-                                    <Image
-                                        src="/mist/tailark-2.png"
-                                        alt="app screen"
-                                        width="2880"
-                                        height="1842"
-                                        className="object-top-left size-full object-cover"
-                                    />
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </section>

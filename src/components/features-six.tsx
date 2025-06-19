@@ -11,7 +11,7 @@ const GLODIE_AVATAR = 'https://avatars.githubusercontent.com/u/99137927?v=4'
 export default function FeaturesSection() {
     return (
         <section id="features">
-            <div className="py-24">
+            <div className="py-6">
                 <div className="mx-auto w-full max-w-5xl px-6">
                     <div>
                         <h2 className="text-foreground max-w-2xl text-balance text-4xl font-semibold">How I Work</h2>
