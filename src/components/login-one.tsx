@@ -13,7 +13,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const { signIn } = useAuth()
+    const { signIn, signInWithGoogle } = useAuth()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -61,7 +61,13 @@ export default function LoginPage() {
                             type="button"
                             variant="outline"
                             size="default"
-                            className="w-full">
+                            className="w-full"
+                            onClick={async () => {
+                                const { error } = await signInWithGoogle()
+                                if (error) {
+                                    setError(error.message)
+                                }
+                            }}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="size-4"

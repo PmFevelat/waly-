@@ -1,14 +1,118 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { X } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { useAuth } from '@/contexts/auth-context'
+import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
 
-const competitorTags = ['Stripe', 'Square', 'PayPal']
-const knownAccounts = ['Qonto', 'Doctolib', 'Revolut', 'N26']
-const wantToLearnAccounts = ['Swile', 'Spendesk', 'Klarna', 'Wise']
+interface Profile {
+  full_name: string
+  email: string
+  company: string
+  job_title: string
+  industry: string
+  competitors: string[]
+}
 
 export const ProfileForm = () => {
+  const { user } = useAuth()
+  const router = useRouter()
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [profile, setProfile] = useState<Profile>({
+    full_name: '',
+    email: '',
+    company: '',
+    job_title: '',
+    industry: '',
+    competitors: []
+  })
+
+  // Pour l'instant, données statiques
+  const knownAccounts = ['Qonto', 'Doctolib', 'Revolut', 'N26']
+  const wantToLearnAccounts = ['Swile', 'Spendesk', 'Klarna', 'Wise']
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login')
+      return
+    }
+    loadProfile()
+  }, [user, router])
+
+  const loadProfile = async () => {
+    if (!supabase || !user) return
+
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single()
+
+      if (error) throw error
+
+      if (data) {
+        setProfile({
+          full_name: data.full_name || '',
+          email: data.email || user.email || '',
+          company: data.company || '',
+          job_title: data.job_title || '',
+          industry: data.industry || '',
+          competitors: data.competitors || []
+        })
+      }
+    } catch (error) {
+      console.error('Error loading profile:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const saveField = async (field: keyof Profile, value: any) => {
+    if (!supabase || !user) return
+
+    setSaving(true)
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ [field]: value })
+        .eq('id', user.id)
+
+      if (error) throw error
+    } catch (error) {
+      console.error('Error saving profile:', error)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleFieldChange = (field: keyof Profile, value: any) => {
+    setProfile(prev => ({ ...prev, [field]: value }))
+    // Sauvegarder automatiquement après un délai
+    const timeoutId = setTimeout(() => {
+      saveField(field, value)
+    }, 500)
+    return () => clearTimeout(timeoutId)
+  }
+
+  const addCompetitor = (competitor: string) => {
+    const newCompetitors = [...profile.competitors, competitor]
+    handleFieldChange('competitors', newCompetitors)
+  }
+
+  const removeCompetitor = (competitor: string) => {
+    const newCompetitors = profile.competitors.filter(c => c !== competitor)
+    handleFieldChange('competitors', newCompetitors)
+  }
+
+  if (loading) {
+    return <div className="text-center py-8">Loading profile...</div>
+  }
   return (
     <div className="space-y-4">
       {/* Personal Information */}
@@ -23,7 +127,8 @@ export const ProfileForm = () => {
               <Input
                 id="fullName"
                 type="text"
-                defaultValue="Alex Johnson"
+                value={profile.full_name}
+                onChange={(e) => handleFieldChange('full_name', e.target.value)}
                 className="h-8 text-sm"
                 style={{ border: '1px solid #E6E6E6' }}
               />
@@ -36,9 +141,11 @@ export const ProfileForm = () => {
                 <Input
                   id="email"
                   type="email"
-                  defaultValue="alex@startup.com"
+                  value={profile.email}
+                  onChange={(e) => handleFieldChange('email', e.target.value)}
                   className="h-8 text-sm pr-16"
                   style={{ border: '1px solid #E6E6E6' }}
+                  disabled
                 />
                 <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded">
                   Verified
@@ -61,7 +168,8 @@ export const ProfileForm = () => {
               <Input
                 id="company"
                 type="text"
-                defaultValue="TechCorp Inc."
+                value={profile.company}
+                onChange={(e) => handleFieldChange('company', e.target.value)}
                 className="h-8 text-sm"
                 style={{ border: '1px solid #E6E6E6' }}
               />
@@ -73,7 +181,8 @@ export const ProfileForm = () => {
               <Input
                 id="jobTitle"
                 type="text"
-                defaultValue="Account Executive"
+                value={profile.job_title}
+                onChange={(e) => handleFieldChange('job_title', e.target.value)}
                 className="h-8 text-sm"
                 style={{ border: '1px solid #E6E6E6' }}
               />
@@ -86,7 +195,8 @@ export const ProfileForm = () => {
             <Input
               id="industry"
               type="text"
-              defaultValue="FinTech"
+              value={profile.industry}
+              onChange={(e) => handleFieldChange('industry', e.target.value)}
               className="h-8 text-sm"
               style={{ border: '1px solid #E6E6E6' }}
             />
@@ -100,12 +210,15 @@ export const ProfileForm = () => {
           <h2 className="text-base font-semibold text-gray-900 mb-1">Competitors to Exclude</h2>
           <p className="text-xs text-gray-600 mb-3">Select companies you compete with to avoid introductions</p>
           <div className="flex flex-wrap gap-1.5 mb-3">
-            {competitorTags.map((competitor, index) => (
+            {profile.competitors.map((competitor, index) => (
               <span
                 key={index}
                 className="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full">
                 {competitor}
-                <X className="w-3 h-3 cursor-pointer hover:text-gray-900" />
+                <X 
+                  className="w-3 h-3 cursor-pointer hover:text-gray-900" 
+                  onClick={() => removeCompetitor(competitor)}
+                />
               </span>
             ))}
           </div>

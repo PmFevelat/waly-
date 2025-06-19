@@ -14,7 +14,7 @@ export default function SignupPage() {
     const [fullName, setFullName] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const { signUp } = useAuth()
+    const { signUp, signInWithGoogle } = useAuth()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -24,7 +24,12 @@ export default function SignupPage() {
         const { error } = await signUp(email, password, fullName)
         
         if (error) {
-            setError(error.message)
+            // Personnaliser le message pour les emails déjà utilisés
+            if (error.message.includes('already registered') || error.message.includes('already exists')) {
+                setError('This email address is already in use')
+            } else {
+                setError(error.message)
+            }
             setLoading(false)
         }
     }
@@ -62,7 +67,13 @@ export default function SignupPage() {
                             type="button"
                             variant="outline"
                             size="default"
-                            className="w-full">
+                            className="w-full"
+                            onClick={async () => {
+                                const { error } = await signInWithGoogle()
+                                if (error) {
+                                    setError(error.message)
+                                }
+                            }}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="size-4"

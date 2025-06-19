@@ -9,6 +9,7 @@ interface AuthContextType {
   loading: boolean
   signUp: (email: string, password: string, fullName: string) => Promise<{ error: Error | null }>
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>
+  signInWithGoogle: () => Promise<{ error: Error | null }>
   signOut: () => Promise<void>
 }
 
@@ -53,8 +54,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     if (!error && data.user) {
-      // Rediriger vers la page de vérification email
-      router.push('/verify-email')
+      // Stocker l'email pour la page de confirmation
+      localStorage.setItem('pendingVerificationEmail', email)
+      // Rediriger vers la page de confirmation
+      router.push('/email-confirmation')
     }
 
     return { error }
@@ -78,18 +81,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { error }
   }
 
+  const signInWithGoogle = async () => {
+    if (!supabase) {
+      return { error: new Error('Supabase client not initialized') }
+    }
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`
+      }
+    })
+
+    return { error }
+  }
+
   const signOut = async () => {
     if (!supabase) {
-      router.push('/login')
+      router.push('/')
       return
     }
     
     await supabase.auth.signOut()
-    router.push('/login')
+    router.push('/')
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signUp, signIn, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   )
