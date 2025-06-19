@@ -1,15 +1,36 @@
+'use client'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { useState } from 'react'
+import { useAuth } from '@/contexts/auth-context'
 
 export default function LoginPage() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const { signIn } = useAuth()
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setError('')
+        setLoading(true)
+
+        const { error } = await signIn(email, password)
+        
+        if (error) {
+            setError(error.message)
+            setLoading(false)
+        }
+    }
     return (
         <section className="bg-linear-to-b from-muted to-background flex min-h-screen px-4 py-16 md:py-32">
             <form
-                action=""
+                onSubmit={handleSubmit}
                 className="max-w-92 m-auto h-fit w-full">
                 <div className="p-6">
                     <div>
@@ -65,6 +86,12 @@ export default function LoginPage() {
                     <hr className="mb-5 mt-6" />
 
                     <div className="space-y-6">
+                        {error && (
+                            <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md">
+                                {error}
+                            </div>
+                        )}
+                        
                         <div className="space-y-2">
                             <Label
                                 htmlFor="email"
@@ -77,15 +104,36 @@ export default function LoginPage() {
                                 name="email"
                                 id="email"
                                 placeholder="Your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="ring-foreground/15 border-transparent ring-1"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label
+                                htmlFor="password"
+                                className="block text-sm">
+                                Password
+                            </Label>
+                            <Input
+                                type="password"
+                                required
+                                name="password"
+                                id="password"
+                                placeholder="Your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="ring-foreground/15 border-transparent ring-1"
                             />
                         </div>
 
                         <Button
-                            asChild
+                            type="submit"
                             className="w-full"
-                            size="default">
-                            <Link href="/intros">Continue</Link>
+                            size="default"
+                            disabled={loading}>
+                            {loading ? 'Signing in...' : 'Sign in'}
                         </Button>
                     </div>
                 </div>

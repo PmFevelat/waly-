@@ -3,12 +3,14 @@ import React from 'react'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useAuth } from '@/contexts/auth-context'
 
 interface UserDropdownProps {
   className?: string
 }
 
 export const UserDropdown = ({ className }: UserDropdownProps) => {
+  const { user, signOut } = useAuth()
   const [isOpen, setIsOpen] = React.useState(false)
   const dropdownRef = React.useRef<HTMLDivElement>(null)
 
@@ -55,8 +57,10 @@ export const UserDropdown = ({ className }: UserDropdownProps) => {
                 className="w-10 h-10 rounded-full object-contain bg-gray-100"
               />
               <div>
-                <p className="text-sm font-semibold text-gray-900">Pierre Marie Fevelat</p>
-                <p className="text-xs text-gray-500">pierre-marie.fevelat@hec.edu</p>
+                <p className="text-sm font-semibold text-gray-900">
+                  {user?.user_metadata?.full_name || 'User'}
+                </p>
+                <p className="text-xs text-gray-500">{user?.email}</p>
               </div>
             </div>
           </div>
@@ -83,10 +87,9 @@ export const UserDropdown = ({ className }: UserDropdownProps) => {
           <div className="py-0.5">
             <button
               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-              onClick={() => {
+              onClick={async () => {
                 setIsOpen(false)
-                // Handle logout logic here
-                console.log('Logging out...')
+                await signOut()
               }}>
               Log out
             </button>
