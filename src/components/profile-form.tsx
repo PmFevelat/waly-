@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { X } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/contexts/auth-context'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
@@ -22,7 +22,6 @@ export const ProfileForm = () => {
   const { user } = useAuth()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
   const [profile, setProfile] = useState<Profile>({
     full_name: '',
     email: '',
@@ -36,15 +35,7 @@ export const ProfileForm = () => {
   const knownAccounts = ['Qonto', 'Doctolib', 'Revolut', 'N26']
   const wantToLearnAccounts = ['Swile', 'Spendesk', 'Klarna', 'Wise']
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/login')
-      return
-    }
-    loadProfile()
-  }, [user, router])
-
-  const loadProfile = async () => {
+  const loadProfile = useCallback(async () => {
     if (!supabase || !user) return
 
     try {
@@ -71,12 +62,19 @@ export const ProfileForm = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [user])
 
-  const saveField = async (field: keyof Profile, value: any) => {
+  useEffect(() => {
+    if (!user) {
+      router.push('/login')
+      return
+    }
+    loadProfile()
+  }, [user, router, loadProfile])
+
+  const saveField = async (field: keyof Profile, value: string | string[]) => {
     if (!supabase || !user) return
 
-    setSaving(true)
     try {
       const { error } = await supabase
         .from('profiles')
@@ -86,23 +84,16 @@ export const ProfileForm = () => {
       if (error) throw error
     } catch (error) {
       console.error('Error saving profile:', error)
-    } finally {
-      setSaving(false)
     }
   }
 
-  const handleFieldChange = (field: keyof Profile, value: any) => {
+  const handleFieldChange = (field: keyof Profile, value: string | string[]) => {
     setProfile(prev => ({ ...prev, [field]: value }))
     // Sauvegarder automatiquement après un délai
     const timeoutId = setTimeout(() => {
       saveField(field, value)
     }, 500)
     return () => clearTimeout(timeoutId)
-  }
-
-  const addCompetitor = (competitor: string) => {
-    const newCompetitors = [...profile.competitors, competitor]
-    handleFieldChange('competitors', newCompetitors)
   }
 
   const removeCompetitor = (competitor: string) => {

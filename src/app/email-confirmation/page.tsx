@@ -75,7 +75,7 @@ export default function EmailConfirmationPage() {
                             Check your email
                         </h1>
                         <p className="mt-3 text-sm text-muted-foreground text-center">
-                            We've sent a verification link to<br />
+                            We&apos;ve sent a verification link to<br />
                             <span className="font-medium text-gray-900">{email}</span>
                         </p>
                     </div>
@@ -83,7 +83,7 @@ export default function EmailConfirmationPage() {
                     <div className="mt-8 space-y-4">
                         <div className="text-center">
                             <p className="text-sm text-muted-foreground">
-                                Didn't receive the email?{' '}
+                                Didn&apos;t receive the email?{' '}
                                 <Button
                                     variant="link"
                                     className="px-0 text-sm"
