@@ -8,12 +8,12 @@ import Image from 'next/image'
 import { UserDropdown } from './user-dropdown'
 
 const tabItems = [
-  { name: 'Intros', href: '/intros', active: true },
+  { name: 'Intros', href: '/intros', active: false },
   { name: 'Chrome extension', href: '/chromeextension', active: false },
-  { name: 'Profile', href: '/profile', active: false },
+  { name: 'Profile', href: '/profile', active: true },
 ]
 
-export const IntrosHeader = () => {
+export const ProfileHeader = () => {
   const [isScrolled, setIsScrolled] = React.useState(false)
 
   React.useEffect(() => {

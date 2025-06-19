@@ -23,11 +23,11 @@ const mockIntros = [
 
 export default function IntrosPage() {
   return (
-    <div className="min-h-screen bg-linear-to-b from-muted to-background">
+    <div className="min-h-screen bg-linear-to-b from-muted to-background flex flex-col">
       <IntrosHeader />
       
-      <main className="pt-12">
-        <div className="mx-auto max-w-6xl px-6 py-8">
+      <main className="flex-1 pt-12">
+        <div className="mx-auto max-w-6xl px-6 py-8 min-h-full">
           {/* Grid container with 12 columns */}
           <div className="grid grid-cols-12 gap-6">
             {/* Content area - 8 columns on desktop, full width on mobile */}
@@ -47,13 +47,14 @@ export default function IntrosPage() {
                   <Input
                     type="text"
                     placeholder="Search intros"
-                    className="pl-9 h-9 text-sm bg-white border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    className="pl-9 h-9 text-sm bg-white focus:border-blue-500 focus:ring-blue-500"
+                    style={{ border: '1px solid #E6E6E6' }}
                   />
                 </div>
               </div>
 
               {/* Intro cards */}
-              <div className="space-y-4">
+              <div className="space-y-4 pb-16">
                 {mockIntros.map((intro) => (
                   <IntroCard key={intro.id} intro={intro} />
                 ))}
