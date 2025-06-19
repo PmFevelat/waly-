@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ArrowUp, Globe, Play, Plus, Signature, Sparkles } from 'lucide-react'
+import Image from 'next/image'
 
 const MESCHAC_AVATAR = 'https://avatars.githubusercontent.com/u/47919550?v=4'
 const BERNARD_AVATAR = 'https://avatars.githubusercontent.com/u/31113941?v=4'
@@ -18,7 +19,6 @@ export default function FeaturesSection3() {
                     <div className="mt-16 space-y-12">
                         <div className="grid items-center gap-6 sm:grid-cols-5">
                             <Card
-                                variant="soft"
                                 className="p-6 sm:col-span-2">
                                 <MeetingIllustration />
                             </Card>
@@ -30,7 +30,6 @@ export default function FeaturesSection3() {
 
                         <div className="grid items-center gap-6 sm:grid-cols-5">
                             <Card
-                                variant="soft"
                                 className="overflow-hidden p-6 sm:col-span-2 sm:overflow-clip">
                                 <CodeReviewIllustration />
                             </Card>
@@ -42,7 +41,6 @@ export default function FeaturesSection3() {
 
                         <div className="grid items-center gap-6 sm:grid-cols-5">
                             <Card
-                                variant="soft"
                                 className="overflow-hidden px-6 sm:col-span-2">
                                 <div className="mask-b-from-75% -mx-2 -mt-2 px-2 pt-6">
                                     <AIAssistantIllustration />
@@ -84,12 +82,12 @@ const MeetingIllustration = () => {
                         <div
                             key={index}
                             className="bg-background size-7 rounded-full border p-0.5 shadow shadow-zinc-950/5">
-                            <img
+                            <Image
                                 className="aspect-square rounded-full object-cover"
                                 src={avatar.src}
                                 alt={avatar.alt}
-                                height="460"
-                                width="460"
+                                height={460}
+                                width={460}
                             />
                         </div>
                     ))}
@@ -108,12 +106,12 @@ const CodeReviewIllustration = () => {
             <Card className="aspect-video w-4/5 p-3 transition-transform duration-200 ease-in-out group-hover:-rotate-3">
                 <div className="mb-3 grid grid-cols-[auto_1fr] gap-2">
                     <div className="bg-background size-6 rounded-full border p-0.5 shadow shadow-zinc-950/5">
-                        <img
+                        <Image
                             className="aspect-square rounded-full object-cover"
                             src={MESCHAC_AVATAR}
                             alt="M Irung"
-                            height="460"
-                            width="460"
+                            height={460}
+                            width={460}
                         />
                     </div>
                     <div className="flex items-center gap-1">

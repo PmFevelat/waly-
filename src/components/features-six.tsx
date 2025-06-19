@@ -1,12 +1,6 @@
-import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { ArrowUp, CalendarCheck, Globe, MessageCircle, Phone, Play, Plus, Signature, Sparkles, Users } from 'lucide-react'
+import { MessageCircle, Phone, Users } from 'lucide-react'
 import Image from 'next/image'
-
-const MESCHAC_AVATAR = 'https://avatars.githubusercontent.com/u/47919550?v=4'
-const BERNARD_AVATAR = 'https://avatars.githubusercontent.com/u/31113941?v=4'
-const THEO_AVATAR = 'https://avatars.githubusercontent.com/u/68236786?v=4'
-const GLODIE_AVATAR = 'https://avatars.githubusercontent.com/u/99137927?v=4'
 
 export default function FeaturesSection() {
     return (
@@ -21,7 +15,7 @@ export default function FeaturesSection() {
                             className="group overflow-hidden p-6" style={{backgroundColor: '#F3F3F3'}}>
                             <MessageCircle className="text-primary size-5" />
                             <h3 className="text-foreground mt-5 text-lg font-semibold">Message me on WhatsApp</h3>
-                            <p className="text-muted-foreground mt-3 text-balance">We'll chat so I can understand your clients, ICPs, and what kind of insights you're looking for.</p>
+                            <p className="text-muted-foreground mt-3 text-balance">We&apos;ll chat so I can understand your clients, ICPs, and what kind of insights you&apos;re looking for.</p>
 
                             <MeetingIllustration />
                         </Card>
@@ -29,16 +23,16 @@ export default function FeaturesSection() {
                         <Card
                             className="group overflow-hidden px-6 pt-6" style={{backgroundColor: '#F3F3F3'}}>
                             <Phone className="text-primary size-5" />
-                            <h3 className="text-foreground mt-5 text-lg font-semibold">I'll give you a call</h3>
-                            <p className="text-muted-foreground mt-3 text-balance">We'll chat so I can understand what you're looking for — and what you know that could help others.</p>
+                            <h3 className="text-foreground mt-5 text-lg font-semibold">I&apos;ll give you a call</h3>
+                            <p className="text-muted-foreground mt-3 text-balance">We&apos;ll chat so I can understand what you&apos;re looking for — and what you know that could help others.</p>
 
                             <CodeReviewIllustration />
                         </Card>
                         <Card
                             className="group overflow-hidden px-6 pt-6" style={{backgroundColor: '#F3F3F3'}}>
                             <Users className="text-primary size-5" />
-                            <h3 className="text-foreground mt-5 text-lg font-semibold">I'll suggest smart introductions</h3>
-                            <p className="text-muted-foreground mt-3 text-balance">If someone in the network can help with one of your target accounts — or benefit from your intel — I'll suggest an intro.</p>
+                            <h3 className="text-foreground mt-5 text-lg font-semibold">I&apos;ll suggest smart introductions</h3>
+                            <p className="text-muted-foreground mt-3 text-balance">If someone in the network can help with one of your target accounts — or benefit from your intel — I&apos;ll suggest an intro.</p>
 
                             <div className="mask-b-from-50 -mx-2 -mt-2 px-2 pt-2">
                                 <AIAssistantIllustration />

@@ -1,7 +1,7 @@
 import { cn } from '../lib/utils'
 import Image from 'next/image'
 
-export const Logo = ({ className, uniColor }: { className?: string; uniColor?: boolean }) => {
+export const Logo = ({ className }: { className?: string; uniColor?: boolean }) => {
     return (
         <Image
             src="/images/logo.png"

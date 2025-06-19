@@ -15,7 +15,6 @@ export default function FeaturesSection2() {
                 <div className="mx-auto w-full max-w-5xl px-6">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                         <Card
-                            variant="soft"
                             className="col-span-full overflow-hidden pl-6 pt-6">
                             <Layout className="text-primary size-5" />
                             <h3 className="text-foreground mt-5 text-lg font-semibold">AI Code Generation</h3>
@@ -33,7 +32,6 @@ export default function FeaturesSection2() {
                             </div>
                         </Card>
                         <Card
-                            variant="soft"
                             className="overflow-hidden p-6">
                             <Target className="text-primary size-5" />
                             <h3 className="text-foreground mt-5 text-lg font-semibold">AI Code Generation</h3>
@@ -43,7 +41,6 @@ export default function FeaturesSection2() {
                         </Card>
 
                         <Card
-                            variant="soft"
                             className="group overflow-hidden px-6 pt-6">
                             <CalendarCheck className="text-primary size-5" />
                             <h3 className="text-foreground mt-5 text-lg font-semibold">Intelligent Code Review</h3>
@@ -52,7 +49,6 @@ export default function FeaturesSection2() {
                             <CodeReviewIllustration />
                         </Card>
                         <Card
-                            variant="soft"
                             className="group overflow-hidden px-6 pt-6">
                             <Sparkles className="text-primary size-5" />
                             <h3 className="text-foreground mt-5 text-lg font-semibold">Contextual AI Assistant</h3>
@@ -93,12 +89,12 @@ const MeetingIllustration = () => {
                         <div
                             key={index}
                             className="bg-background size-7 rounded-full border p-0.5 shadow shadow-zinc-950/5">
-                            <img
+                            <Image
                                 className="aspect-square rounded-full object-cover"
                                 src={avatar.src}
                                 alt={avatar.alt}
-                                height="460"
-                                width="460"
+                                height={460}
+                                width={460}
                             />
                         </div>
                     ))}
@@ -117,12 +113,12 @@ const CodeReviewIllustration = () => {
             <Card className="aspect-video w-4/5 translate-y-4 p-3 transition-transform duration-200 ease-in-out group-hover:-rotate-3">
                 <div className="mb-3 flex items-center gap-2">
                     <div className="bg-background size-6 rounded-full border p-0.5 shadow shadow-zinc-950/5">
-                        <img
+                        <Image
                             className="aspect-square rounded-full object-cover"
                             src={MESCHAC_AVATAR}
                             alt="M Irung"
-                            height="460"
-                            width="460"
+                            height={460}
+                            width={460}
                         />
                     </div>
                     <span className="text-muted-foreground text-sm font-medium">Méschac Irung</span>

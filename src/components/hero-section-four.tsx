@@ -49,7 +49,7 @@ export default function HeroSection() {
                             <div className="relative text-center">
                                 <h1 className="mx-auto max-w-2xl text-balance text-4xl font-bold md:text-5xl">Know exactly who to reach — every time.</h1>
 
-                                <p className="text-muted-foreground mx-auto my-6 max-w-2xl text-balance text-xl">I'll connect you to sellers who've already been there. Message me and I'll call you.</p>
+                                <p className="text-muted-foreground mx-auto my-6 max-w-2xl text-balance text-xl">I&apos;ll connect you to sellers who&apos;ve already been there. Message me and I&apos;ll call you.</p>
 
                                 <div className="flex flex-col items-center justify-center gap-3">
                                     <Button
