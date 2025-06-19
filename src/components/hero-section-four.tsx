@@ -47,9 +47,9 @@ export default function HeroSection() {
                     <div className="py-20 md:py-36">
                         <div className="relative z-10 mx-auto max-w-5xl px-6">
                             <div className="relative text-center">
-                                <h1 className="mx-auto max-w-2xl text-balance text-4xl font-bold md:text-5xl">Know exactly who to reach — every time.</h1>
+                                <h1 className="mx-auto max-w-2xl text-balance text-4xl font-bold md:text-5xl">Know exactly how to enter your target account</h1>
 
-                                <p className="text-muted-foreground mx-auto my-6 max-w-2xl text-balance text-xl">I&apos;ll connect you to sellers who&apos;ve already been there. Message me and I&apos;ll call you.</p>
+                                <p className="text-muted-foreground mx-auto my-6 max-w-2xl text-balance text-xl">I&apos;ll find the seller who has what you need — and needs what you know. Message me and I&apos;ll call you.</p>
 
                                 <div className="flex flex-col items-center justify-center gap-3">
                                     <Button
