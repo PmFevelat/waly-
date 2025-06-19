@@ -35,6 +35,10 @@ export default function VerifyEmailPage() {
                 throw new Error('User email not found')
             }
             
+            if (!supabase) {
+                throw new Error('Supabase client not initialized')
+            }
+            
             const { error } = await supabase.auth.verifyOtp({
                 email: user.email,
                 token: verificationCode,
@@ -59,6 +63,10 @@ export default function VerifyEmailPage() {
         try {
             if (!user?.email) {
                 throw new Error('User email not found')
+            }
+            
+            if (!supabase) {
+                throw new Error('Supabase client not initialized')
             }
             
             const { error } = await supabase.auth.resend({

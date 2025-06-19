@@ -12,6 +12,11 @@ export default function TestSupabasePage() {
 
   const testConnection = async () => {
     try {
+      if (!supabase) {
+        setStatus('❌ Supabase client not initialized')
+        return
+      }
+      
       // Test simple de connexion
       const { error } = await supabase
         .from('_test')
