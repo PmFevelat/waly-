@@ -31,8 +31,12 @@ export default function VerifyEmailPage() {
         setLoading(true)
 
         try {
+            if (!user?.email) {
+                throw new Error('User email not found')
+            }
+            
             const { error } = await supabase.auth.verifyOtp({
-                email: user?.email!,
+                email: user.email,
                 token: verificationCode,
                 type: 'signup'
             })
@@ -44,8 +48,8 @@ export default function VerifyEmailPage() {
             setTimeout(() => {
                 router.push('/intros')
             }, 2000)
-        } catch (err: any) {
-            setError(err.message)
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An error occurred')
         } finally {
             setLoading(false)
         }
@@ -53,15 +57,19 @@ export default function VerifyEmailPage() {
 
     const resendEmail = async () => {
         try {
+            if (!user?.email) {
+                throw new Error('User email not found')
+            }
+            
             const { error } = await supabase.auth.resend({
                 type: 'signup',
-                email: user?.email!
+                email: user.email
             })
             if (error) throw error
             setError('')
             alert('Verification email resent!')
-        } catch (err: any) {
-            setError(err.message)
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An error occurred')
         }
     }
 

@@ -13,7 +13,7 @@ export default function TestSupabasePage() {
   const testConnection = async () => {
     try {
       // Test simple de connexion
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('_test')
         .select('*')
         .limit(1)
